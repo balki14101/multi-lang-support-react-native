@@ -8,8 +8,10 @@
 
 import React, {useState} from 'react';
 import './src/translation/i18n';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import LottieView from 'lottie-react-native';
+import SplashVarient from './assets/pbLoader.json';
 
 const App = () => {
   const {t, i18n} = useTranslation();
@@ -25,6 +27,12 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <LottieView
+        source={require('./assets/72260-smile-face-splash-screen.json')}
+        autoPlay
+        loop
+        style={{height: 100}}
+      />
       <Text style={styles.text}>{t('hello')} </Text>
       {/* <Text style={styles.text}>{t('this line is translated')}</Text> */}
       <View style={{marginTop: 8}}>
@@ -69,6 +77,7 @@ const App = () => {
           <Text style={styles.buttontext}>عربى</Text>
         </TouchableOpacity>
       </View>
+      <LottieView source={SplashVarient} autoPlay loop style={{height: 100}} />
     </View>
   );
 };
