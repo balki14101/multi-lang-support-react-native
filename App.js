@@ -6,44 +6,97 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, {useState} from 'react';
+import './src/translation/i18n';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 const App = () => {
+  const {t, i18n} = useTranslation();
+
+  const [currentLanguage, setLanguage] = useState('en');
+
+  const changeLanguage = value => {
+    i18n
+      .changeLanguage(value)
+      .then(() => setLanguage(value))
+      .catch(err => console.log(err));
+  };
+
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <View>
-        <Text style={{color: 'red', fontSize: 16}}>{'Try out app'}</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>{t('hello')} </Text>
+      {/* <Text style={styles.text}>{t('this line is translated')}</Text> */}
+      <View style={{marginTop: 8}}>
+        <TouchableOpacity
+          onPress={() => changeLanguage('en')}
+          style={[
+            styles.button,
+            {
+              backgroundColor: currentLanguage === 'en' ? '#33A850' : '#d3d3d3',
+            },
+          ]}>
+          <Text style={styles.buttontext}>English</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => changeLanguage('tn')}
+          style={[
+            styles.button,
+            {
+              backgroundColor: currentLanguage === 'tn' ? '#33A850' : '#d3d3d3',
+            },
+          ]}>
+          <Text style={styles.buttontext}>தமிழ்</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => changeLanguage('ml')}
+          style={[
+            styles.button,
+            {
+              backgroundColor: currentLanguage === 'ml' ? '#33A850' : '#d3d3d3',
+            },
+          ]}>
+          <Text style={styles.buttontext}>മലയാളം</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => changeLanguage('ar')}
+          style={[
+            styles.button,
+            {
+              backgroundColor: currentLanguage === 'ar' ? '#33A850' : '#d3d3d3',
+            },
+          ]}>
+          <Text style={styles.buttontext}>عربى</Text>
+        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
+export default App;
+
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  text: {
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: '#33A850',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  button: {
+    // backgroundColor: currentLanguage === 'ar' ? '#33A850' : '#d3d3d3',
+    // padding: 20,
+    height: 50,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
   },
-  highlight: {
-    fontWeight: '700',
+  buttontext: {
+    fontWeight: 'bold',
   },
 });
-
-export default App;
